@@ -1,36 +1,36 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <div>
-      <p>
-        If Element is successfully added to this project, you'll see an
-        <code v-text="'<el-button>'"></code>
-        below
-      </p>
-      <el-button>el-button</el-button>
-    </div>
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>学习 MockJs</h1>
+    <hr />
+    <button @click="getGoodsList">getGoodsList</button>
+    <button @click="addGoods">AddGoods</button>
+    <button @click="getGoods1(4)">getGoods1</button>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'app',
-  components: {
-    HelloWorld
+  components: {},
+  methods: {
+    async getGoodsList () {
+      const { data: res } = await this.$http.get('/api/goodslist')
+      console.log(res)
+    },
+    async addGoods () {
+      const { data: res } = await this.$http.post('/api/addgoods', {
+        name: 'apple',
+        price: 8
+      })
+      console.log(res)
+    },
+    async getGoods1 (id) {
+      const { data: res } = await this.$http.get(`/api/getgoodslist/${id}`)
+      console.log(res)
+    }
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
